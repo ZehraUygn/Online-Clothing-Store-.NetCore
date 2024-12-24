@@ -1,5 +1,6 @@
 ﻿using Business.Models;
 using Business.Services.Abstract;
+using Business.Validator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -23,7 +24,13 @@ namespace Presentation.Controllers
             [HttpPost]
             public async Task<ActionResult> AddCartItem(int userId, CartItemDto item)
             {
-                await _cartService.AddCartItemAsync(userId, item.ProductId, item.Size, item.Price, item.Color, item.Quantity);
+                var validator = new CartItemValidator();
+                var result = validator.Validate(item);
+                if (result.IsValid)
+                {
+                    await _cartService.AddCartItemAsync(userId, item.ProductId, item.Size, item.Price, item.Color, item.Quantity);
+
+                }
                 return Ok();
             }
             [HttpPut]

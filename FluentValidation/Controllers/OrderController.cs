@@ -1,7 +1,5 @@
 ﻿using Business.Models;
 using Business.Services.Abstract;
-using Business.Services.Base;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
@@ -11,12 +9,10 @@ namespace Presentation.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
-
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
-
         [HttpGet]
         public async Task<ActionResult<CartDto>> GetOrderByCustomerId(int userId)
         {
@@ -24,7 +20,6 @@ namespace Presentation.Controllers
             if (order == null) return NotFound();
             return Ok(order);
         }
-
         [HttpPost]
         public async Task<ActionResult> AddOrder(int userId)
         {
@@ -37,8 +32,5 @@ namespace Presentation.Controllers
             await _orderService.DeleteOrderAsync(userId);
             return NoContent();
         }
-
-
-
     }
 }

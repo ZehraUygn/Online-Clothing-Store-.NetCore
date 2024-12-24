@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using DataAccess.Entities;
 using Business.Models;
 
 namespace Project.Validator
